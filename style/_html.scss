@@ -1,0 +1,8 @@
+html {
+  // TODO update to Lit Element
+  --paper-font-common-base_-_font-family: #{$font-family-sans-serif} !important;
+}
+
+*[type="submit"] {
+  -webkit-appearance: none !important;
+}
