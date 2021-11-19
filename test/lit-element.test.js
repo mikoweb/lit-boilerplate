@@ -1,7 +1,7 @@
 import {expect} from '@esm-bundle/chai';
 import {html} from 'lit';
 import {fixture} from '@open-wc/testing';
-import AbstractElement from '../src/elements/AbstractElement';
+import AbstractElement from '../src/components/elements/AbstractElement';
 
 describe('Lit Element Test', () => {
     it('Define new element, create and check content', () => {
