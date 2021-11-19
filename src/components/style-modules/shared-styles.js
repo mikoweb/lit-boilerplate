@@ -1,5 +1,5 @@
 import {css} from 'lit';
-export const styles = css`/*!
+export const sharedStyles = css`/*!
  * Bootstrap Grid v5.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
  * Copyright 2011-2021 Twitter, Inc.

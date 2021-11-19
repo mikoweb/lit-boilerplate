@@ -1,2 +1,2 @@
 import {css} from 'lit';
-export const styles = css`<%= css %>`;
+export const sharedStyles = css`<%= css %>`;
