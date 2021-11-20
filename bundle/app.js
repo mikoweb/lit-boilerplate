@@ -77,5 +77,91 @@
 
     customElements.define('my-element', MyElement);
 
+    /**
+     * Make read-only properties.
+     *
+     * @param {Object} object
+     */
+    const namespace = (object) => {
+        Object.keys(object).forEach((key) => {
+            const prop = object[key];
+            const descriptor = Object.getOwnPropertyDescriptor(object, key);
+
+            Object.defineProperty(object, key, {
+                enumerable: true,
+                configurable: false,
+                writable: false,
+                value: descriptor.value
+            });
+
+            if (prop !== null && typeof prop === 'object' && prop.constructor === Object) {
+                namespace(prop);
+            }
+        });
+    };
+
+    let listeners = [];
+    let ready = false;
+    const elements = document.querySelectorAll('*[wc-hidden], *[wc-lazy], *[wc-ready]');
+    const promises = [];
+
+    for (const el of elements) {
+        promises.push(window.customElements.whenDefined(el.localName));
+    }
+
+    Promise.all(promises).then(() => {
+        ready = true;
+        listeners.forEach(listener => listener());
+        listeners = [];
+        document.body.classList.add('layout-ready');
+    });
+
+    var layoutReady = (listener) => {
+        if (typeof listener === 'function') {
+            if (ready) {
+                listener();
+            } else {
+                listeners.push(listener);
+            }
+        }
+    };
+
+    // import DrawerToggle from "./layout/DrawerToggle";
+    // import PageProgress from "./layout/PageProgress";
+    // import FormBehavior from "./FormBehavior";
+
+    var initializeLayout = () => {
+        layoutReady(() => {
+            // const progress = document.querySelector('#page-progress');
+
+            // if (progress !== null) {
+                // new PageProgress(progress);
+            // }
+
+            for (const el of document.querySelectorAll('*[wc-hidden], *[wc-lazy], *[wc-ready]')) {
+                el.classList.add('ready');
+            }
+
+            // for (const el of document.querySelectorAll('.drawer-toggle')) {
+                // new DrawerToggle(el);
+            // }
+
+            // for (const el of document.querySelectorAll('.form-behavior')) {
+                // new FormBehavior(el);
+            // }
+        });
+    };
+
+    // components bundles
+
+    initializeLayout();
+
+    window.App = {
+        name: 'Lit-Boilerplate',
+        // export to global scope
+    };
+
+    namespace(window.App);
+
 })();
 //# sourceMappingURL=app.js.map
