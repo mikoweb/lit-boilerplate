@@ -17,13 +17,11 @@
                              data-drawer-id="appDrawer"
                              aria-label="Open Menu"
                              role="button"></mwc-icon-button>
-            <h1 class="header__title header-toolbar__item">
-                App Name
-            </h1>
+            <h1 class="header__title header-toolbar__item header__title">App Name</h1>
+            <app-username-display class="header-toolbar__item header-toolbar__hello"></app-username-display>
         </div>
     </header>
-    <main class="main">
-        <mwc-drawer hasHeader type="modal" wc-hidden class="app-drawer" id="appDrawer">
+    <mwc-drawer hasHeader type="modal" wc-hidden class="app-drawer" id="appDrawer">
                 <span slot="title">
                     <mwc-icon-button icon="menu"
                                      class="app-drawer__menu-button app-drawer-toggle"
@@ -31,13 +29,17 @@
                                      aria-label="Open Menu"
                                      role="button"></mwc-icon-button>
                 </span>
-            <div class="app-drawer__content">
-                <p>Drawer content!</p>
-                <mwc-icon-button icon="gesture"></mwc-icon-button>
-                <mwc-icon-button icon="gavel"></mwc-icon-button>
-            </div>
-        </mwc-drawer>
-        <my-element wc-lazy></my-element>
+        <div class="app-drawer__content">
+            <p>Drawer content!</p>
+            <mwc-icon-button icon="gesture"></mwc-icon-button>
+            <mwc-icon-button icon="gavel"></mwc-icon-button>
+        </div>
+    </mwc-drawer>
+    <main class="main">
+        <div class="container">
+            <h2 class="h2">Enter The Username</h2>
+            <app-username-input wc-lazy></app-username-input>
+        </div>
     </main>
     <script type="module" src="../bundle/app.min.js"></script>
 </body>
