@@ -9,7 +9,36 @@
     <link href="../bundle/style.css" rel="stylesheet">
 </head>
 <body>
-    <my-element wc-lazy></my-element>
+    <mwc-linear-progress progress="0" wc-ready class="app-progress active" id="app-progress"></mwc-linear-progress>
+    <header class="header">
+        <div class="header-toolbar">
+            <mwc-icon-button icon="menu"
+                             class="header-toolbar__item app-drawer-toggle"
+                             data-drawer-id="appDrawer"
+                             aria-label="Open Menu"
+                             role="button"></mwc-icon-button>
+            <h1 class="header__title header-toolbar__item">
+                App Name
+            </h1>
+        </div>
+    </header>
+    <main class="main">
+        <mwc-drawer hasHeader type="modal" wc-hidden class="app-drawer" id="appDrawer">
+            <span slot="title">
+                <mwc-icon-button icon="menu"
+                                 class="app-drawer__menu-button app-drawer-toggle"
+                                 data-drawer-id="appDrawer"
+                                 aria-label="Open Menu"
+                                 role="button"></mwc-icon-button>
+            </span>
+            <div class="app-drawer__content">
+                <p>Drawer content!</p>
+                <mwc-icon-button icon="gesture"></mwc-icon-button>
+                <mwc-icon-button icon="gavel"></mwc-icon-button>
+            </div>
+        </mwc-drawer>
+        <my-element wc-lazy></my-element>
+    </main>
     <script type="module" src="../src/index.js"></script>
 </body>
 </html>

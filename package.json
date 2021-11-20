@@ -44,7 +44,12 @@
     "sass": "^1.43.4"
   },
   "dependencies": {
+    "@material/mwc-drawer": "^0.25.3",
+    "@material/mwc-icon": "^0.25.3",
+    "@material/mwc-icon-button": "^0.25.3",
+    "@material/mwc-linear-progress": "^0.25.3",
     "bootstrap": "^5.1.3",
+    "ftdomdelegate": "^5.0.0",
     "lit": "^2.0.2",
     "material-design-color": "^2.3.2",
     "mobx": "^6.3.6"
