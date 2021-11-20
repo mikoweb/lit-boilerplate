@@ -1,22 +1,21 @@
 import Path from './path.js';
-import rollup from 'rollup';
-import nodeResolve from './node-resolve';
+import {rollup} from 'rollup';
+import {terser} from "rollup-plugin-terser";
+import nodeResolve from './node-resolve.js';
 import commonjs from 'rollup-plugin-commonjs';
-import babel from 'rollup-plugin-babel';
 import getGlobals from './global-modules.js';
 
 /**
  * @param {string} inputPath
  * @param {string} distFileName
- * @param {Object} [babelOptions]
  * @param {Object} [resolveOptions]
  * @param {Object} [commonjsOptions]
  *
  * @return {Promise}
  */
-export default (inputPath, distFileName, babelOptions = {}, resolveOptions = {}, commonjsOptions = {}) => {
+export default (inputPath, distFileName, resolveOptions = {}, commonjsOptions = {}) => {
     return new Promise((resolve, reject) => {
-        rollup.rollup({
+        rollup({
             input: inputPath,
             external: Object.keys(getGlobals()),
             plugins: [
@@ -24,15 +23,23 @@ export default (inputPath, distFileName, babelOptions = {}, resolveOptions = {},
                     browser: true
                 }, resolveOptions)),
                 commonjs(Object.assign({}, commonjsOptions)),
-                babel(Object.assign({}, babelOptions))
             ],
         }).then((bundle) => {
-            resolve(bundle.write({
-                file: Path.bundle('/' + distFileName),
-                format: 'iife',
-                sourcemap: true,
-                globals: getGlobals(),
-            }));
+            resolve(Promise.all([
+                bundle.write({
+                    file: Path.bundle('/' + distFileName),
+                    format: 'iife',
+                    sourcemap: true,
+                    globals: getGlobals(),
+                }),
+                bundle.write({
+                    file: Path.bundle('/' + distFileName.replace('.js', '.min.js')),
+                    format: 'iife',
+                    sourcemap: true,
+                    globals: getGlobals(),
+                    plugins: [terser()]
+                })
+            ]));
         }).catch((e) => {
             reject(e);
         });
