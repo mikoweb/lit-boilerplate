@@ -57,3 +57,7 @@ Controller
 ## Lit Animate Directive
 
 https://www.npmjs.com/package/@lit-labs/motion
+
+## Copyrights
+
+Copyright (c) Rafał Mikołajun 2021.
